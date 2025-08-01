@@ -1,10 +1,9 @@
 // components/Sidebar.tsx
-import Link from "next/link";
-import Image from "next/image";
+import Link from "next/link"
 import clsx from "clsx";
 
 import { BsCheck2 } from "react-icons/bs";
-import { FiHome, FiUser, FiPackage, FiMail, FiBookmark, FiAward, FiX} from "react-icons/fi";
+import { FiHome, FiUser, FiPackage, FiMail, FiBookmark, FiAward, FiX } from "react-icons/fi";
 
 import { Footer } from "../components/Footer";
 
@@ -37,19 +36,9 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
         </div>
 
         <div className="flex flex-col items-center mb-8 group border-b border-gray-700 pb-4">
-          {/* Avatar dengan gradient border */}
-          <div className="relative w-20 h-20 rounded-full bg-gradient-to-tr from-blue-500 to-purple-600 p-1 mb-3 hover:scale-105 transition-transform">
-            <Image
-              src="/photo.png"
-              alt="Ady Candra"
-              fill
-              sizes="80px" 
-              className="rounded-full"
-            />
-          </div>
 
           {/* Nama dan Role */}
-          <h1 className="text-lg font-bold tracking-wide group-hover:text-blue-400 transition flex items-center gap-1">
+          <h1 className="mt-12 text-lg font-bold tracking-wide group-hover:text-blue-400 transition flex items-center gap-1">
             Ady Candra
             <span className="bg-blue-500 text-white text-[10px] px-0.5 py-0.5 rounded-full flex items-center gap-0.5">
               <BsCheck2 className="text-xs" />
@@ -69,6 +58,43 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
               </span>
             ))}
           </div>
+
+          {/* Employment Status */}
+          <div className="mt-6 px-4 py-3 bg-gray-800 rounded-lg shadow text-sm leading-tight">
+            <ul className="space-y-1">
+              <li className="flex justify-between items-center">
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-red-500 rounded-full"></span>
+                  <span className="text-xs text-gray-200">Full-time</span>
+                </span>
+                <span className="text-xs italic text-gray-400">Not available</span>
+              </li>
+              <li className="flex justify-between items-center">
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                  <span className="text-xs text-gray-200">Freelance</span>
+                </span>
+                <span className="text-xs text-green-400">Available</span>
+              </li>
+              <li className="flex justify-between items-center">
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                  <span className="text-xs text-gray-200">Partnership</span>
+                </span>
+                <span className="text-xs text-green-400">Available</span>
+              </li>
+            </ul>
+            <a
+              href="#contact"
+              className="flex items-center justify-center gap-2 mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white py-1.5 rounded-md text-xs font-medium transition"
+            >
+              Let’s Collaborate
+            </a>
+
+          </div>
+
+
+
         </div>
         
         </div>
