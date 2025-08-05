@@ -83,7 +83,7 @@ export default function Home() {
         <section className="mt-16">
           <blockquote className="text-gray-300 italic border-l-4 pl-4 border-blue-500">
             “Ady has a additional ability beyond HR circumtances. He has programming skill to fulfill my needs of HR operationals.”
-            <br /><span className="text-sm text-gray-500">— HR & GA Manager, PT Trimegah Bangun Persada</span>
+            <br /><span className="text-sm text-gray-500">— HR & GA Manager, PT Trimegah Bangun Persada, Tbk</span>
           </blockquote>
         </section>
 

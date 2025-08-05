@@ -90,18 +90,14 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
             >
               Let’s Collaborate
             </a>
-
           </div>
-
-
-
         </div>
         
         </div>
         <nav className="flex flex-col gap-2 mt-4">
           {[
             { href: "/", label: "Home", icon: <FiHome /> },
-            { href: "#about", label: "About", icon: <FiUser /> },
+            { href: "/about", label: "About", icon: <FiUser /> },
             { href: "#achievement", label: "Achievement", icon: <FiAward /> },
             { href: "#projects", label: "Projects", icon: <FiPackage /> },
             { href: "#learning", label: "Learning", icon: <FiBookmark  /> },
