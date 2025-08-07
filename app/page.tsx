@@ -38,17 +38,17 @@ export default function Home() {
           <div className="flex-1">
             <h1 className="text-4xl font-extrabold mb-2">Ady Candra</h1>
             <p className="text-lg text-blue-600 font-medium mb-2">
-              Human Resources Specialist
+              HR Technology & Data Development Specialist
             </p>
             <div className="flex flex-wrap gap-2 mb-4">
-              {["HR Analytics", "Talent Management", "HRIS", "People Development"].map(tag => (
+              {["HR Analytics", "Talent Management", "HR Automation", "HRIS", "People Development"].map(tag => (
                 <span key={tag} className="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">
                   {tag}
                 </span>
               ))}
             </div>
             <p className="text-gray-400 mb-6 max-w-2xl">
-              I help organizations grow by empowering their people through data-driven strategies and efficient HR systems. With 8+ years of experience, I’ve led projects in recruitment, people development, and organizational transformation.
+              I help organizations solve day-to-day HR problems with automation, dashboards, and custom HR tools — from employee onboarding to retention analysis. With 8+ years of experience, I’ve led projects in recruitment, people development, and organizational transformation.
             </p>
             <div className="flex gap-4 mb-6 text-sm text-blue-600">
               <a href="mailto:your.email@example.com" className="hover:underline">Email</a>
