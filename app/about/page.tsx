@@ -2,9 +2,93 @@
 import { useState } from "react";
 import { Sidebar } from "@/components/Sidebar";
 import { FiMenu } from "react-icons/fi";
+import { useKeenSlider, KeenSliderInstance } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
 
+const skillCategories = [
+  {
+    title: "HR Technology",
+    description: "Tools and platforms I use to enhance HR processes",
+    skills: [
+      { name: "HRIS", level: 4, info: "Managing employee data & HR processes" },
+      { name: "HR Automation", level: 3, info: "Streamlining repetitive HR tasks" },
+      { name: "Google Apps Script", level: 3, info: "Custom automation & workflow integration" },
+    ],
+  },
+  {
+    title: "Data & Analytics",
+    description: "My expertise in data analysis and visualization",
+    skills: [
+      { name: "Power BI", level: 4, info: "Dashboarding & reporting" },
+      { name: "SQL", level: 3, info: "Querying & database design" },
+      { name: "Python", level: 2, info: "Data wrangling, automation" },
+      { name: "Data Visualization", level: 4, info: "Charts, storytelling" },
+      { name: "Data Storytelling", level: 3, info: "Presenting insights" },
+    ],
+  },
+  {
+    title: "People Strategy",
+    description: "Strategic HR skills for workforce planning and development",
+    skills: [
+      { name: "HR Analytics", level: 4, info: "Turning HR data into insights" },
+      { name: "Workforce Planning", level: 3, info: "Forecasting staffing needs" },
+      { name: "People Development", level: 3, info: "Coaching & employee growth programs" },
+      { name: "Organizational Design", level: 2, info: "Structuring teams & reporting lines" },
+    ],
+  },
+  {
+    title: "Business & Soft Skills",
+    description: "Essential skills for effective communication and leadership",
+    skills: [
+      { name: "Public Speaking", level: 3, info: "Presenting ideas to diverse audiences" },
+      { name: "Problem Solving", level: 4, info: "Breaking down complex challenges" },
+      { name: "Business Strategy", level: 3, info: "Aligning HR with business goals" },
+    ],
+  },
+];
+
+
+const Autoplay = (delay = 5000) => (slider: KeenSliderInstance) => {
+  let timeout: ReturnType<typeof setTimeout>
+  let mouseOver = false
+
+  const clear = () => clearTimeout(timeout)
+  const next = () => {
+    clear()
+    if (mouseOver) return
+    timeout = setTimeout(() => slider.next(), delay)
+  }
+
+  const onEnter = () => { mouseOver = true; clear() }
+  const onLeave = () => { mouseOver = false; next() }
+
+  slider.on("created", () => {
+    slider.container.addEventListener("mouseenter", onEnter)
+    slider.container.addEventListener("mouseleave", onLeave)
+    next()
+  })
+
+  slider.on("dragStarted", clear)
+  slider.on("animationEnded", next)
+  slider.on("updated", next)
+
+  slider.on("destroyed", () => {
+    slider.container.removeEventListener("mouseenter", onEnter)
+    slider.container.removeEventListener("mouseleave", onLeave)
+    clear()
+  })
+}
 export default function AboutPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const [sliderRef] = useKeenSlider<HTMLDivElement>(
+  {
+    loop: true,
+    mode: "snap",
+    slides: { origin: "center", perView: 1, spacing: 16 },
+  },
+  [Autoplay(3000)] // autoplay 5s + pause on hover
+)
 
   return (
     <div className="flex h-full">
@@ -27,11 +111,11 @@ export default function AboutPage() {
             <div className="md:col-span-2 space-y-4">
               <h2 className="text-2xl font-bold text-blue-700">About Me</h2>
               <p className="text-gray-200 text-sm leading-relaxed">
-                I&apos;m <strong>Ady Candra</strong>, an <strong>HR Technology & Data Development Specialist</strong> focused on blending human insight, systems thinking, and data to support meaningful HR transformation.
+                I&apos;m <strong>Ady Candra</strong>, an <strong>HR Technology & Data Development Specialist</strong> focused on blending HR insight, technology, and data analytic to support meaningful HR strategic transformation.
 
-                With over 8 years of experience in recruitment, training, people development, and HR operations across mining and industrial sectors, I build practical, human-centered HR systems and tools.
+                With over 8 years of experience in recruitment, training, people development, and HR operations across mining sectors, I build practical, human-centered HR systems, technologies and tools.
 
-                Currently, I&apos;m exploring the path of HR Data Science — developing machine learning models to help analyze, predict, and guide HR decisions in real time.
+                Currently, I&apos;m exploring the path of <strong>HR Data Science</strong> — developing machine learning models to help analyze, predict, and guide HR decisions accurately in real time.
               </p>
               <p className="text-gray-200 text-sm leading-relaxed mt-4">
                 I bring a unique combination of HR capabilities:
@@ -61,7 +145,7 @@ export default function AboutPage() {
               <ul className="text-gray-200 text-sm space-y-2">
                 <li className="flex items-center">
                   <span className="w-28 text-gray-400">Regency</span>
-                  <span className="font-medium text-white">Berau</span>
+                  <span className="font-small text-white">Berau</span>
                 </li>
                 <li className="flex items-center">
                   <span className="w-28 text-gray-400">Province</span>
@@ -88,69 +172,62 @@ export default function AboutPage() {
 
         <section className="w-full max-w-5xl mx-auto p-6 space-y-10">
           {/* Skills */}
-          <div>
+          <div className="my-10">
             <h2 className="text-xl font-semibold text-blue-600 mb-4">Skills</h2>
-            <div className="space-y-4">
 
-              {/* HR Technology */}
-              <div>
-                <h3 className="text-md font-semibold text-gray-700 mb-1">HR Technology</h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "HRIS", "HR Automation", "Retool", "Notion", "Zapier", "Google Apps Script"
-                  ].map(skill => (
-                    <span key={skill} className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">
-                      {skill}
-                    </span>
-                  ))}
+            <div ref={sliderRef} className="keen-slider">
+              {skillCategories.map((category, index) => (
+                <div
+                  key={index}
+                  className="keen-slider__slide rounded-xl bg-white p-4 shadow-md"
+                >
+                  <div className="grid grid-cols-2 gap-4">
+                    {/* Kiri: Judul + Deskripsi */}
+                    <div className="flex flex-col justify-start">
+                      <h3 className="text-lg font-semibold text-blue-700 mb-2">
+                        {category.title}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        {category.description}
+                      </p>
+                    </div>
+
+                    {/* Kanan: Skills (satu per baris) */}
+                    <div className="flex flex-wrap gap-2 items-start">
+                      {category.skills.map((skill) => (
+                        <div key={skill.name} className="relative group">
+                          <span className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full cursor-pointer">
+                            {skill.name}
+                          </span>
+
+                          {/* Tooltip */}
+                          <div className="absolute left-1/2 -translate-x-1/2 mt-2 hidden group-hover:block 
+                                          bg-gray-800 text-white text-xs rounded-lg px-3 py-2 shadow-lg w-48 z-50">
+                            <p className="font-semibold">{skill.name}</p>
+                            <p className="text-gray-300 mb-1">{skill.info}</p>
+                            <div className="flex">
+                              {Array.from({ length: 5 }).map((_, i) => (
+                                <svg
+                                  key={i}
+                                  className={`w-4 h-4 ${i < skill.level ? "text-yellow-400" : "text-gray-500"}`}
+                                  fill="currentColor"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.385-2.459a1 1 0 00-1.175 0l-3.385 2.459c-.785.57-1.84-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.046 9.394c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.287-3.967z" />
+                                </svg>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              {/* Data & Analytics */}
-              <div>
-                <h3 className="text-md font-semibold text-gray-700 mb-1">Data & Analytics</h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "HR Analytics", "Workforce Planning", "Power BI", "SQL", "Python", "Data Visualization"
-                  ].map(skill => (
-                    <span key={skill} className="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Web & App Development */}
-              <div>
-                <h3 className="text-md font-semibold text-gray-700 mb-1">Web & App Development</h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "Next.js", "React", "Node.js", "MongoDB", "REST API"
-                  ].map(skill => (
-                    <span key={skill} className="bg-yellow-100 text-yellow-800 text-sm px-3 py-1 rounded-full">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* HR Domain Knowledge */}
-              <div>
-                <h3 className="text-md font-semibold text-gray-700 mb-1">HR Domain Knowledge</h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "People Development", "Organizational Design", "Change Management"
-                  ].map(skill => (
-                    <span key={skill} className="bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
+              ))}
             </div>
           </div>
         </section>
+
 
         <section className="w-full max-w-5xl mx-auto p-6 space-y-10">
           {/* Career */}

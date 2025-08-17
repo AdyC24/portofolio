@@ -5,8 +5,6 @@ import clsx from "clsx";
 import { BsCheck2 } from "react-icons/bs";
 import { FiHome, FiUser, FiPackage, FiMail, FiBookmark, FiAward, FiX } from "react-icons/fi";
 
-import { Footer } from "../components/Footer";
-
 export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const tags = [
     "Human Capital",
@@ -115,10 +113,10 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
         </nav>
       </div>
 
-      {/* Footer */}
+      {/* Footer
       <div className="h-110 content-end items-center">
         <Footer />
-      </div>
+      </div> */}
 
     </aside>
   );
